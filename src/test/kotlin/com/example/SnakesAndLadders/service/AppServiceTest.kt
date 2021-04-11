@@ -6,39 +6,36 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
 
-
-
-
 internal class AppServiceTest {
     val appService = AppService()
 
 
     @Test
-    @ExperimentalCoroutinesApi
     fun `Valid random value`() {
-        val valueArray =1..6
-        assertTrue(  appService.randomRollValue() in valueArray)
-
+        assertTrue(appService.randomRollValue() in 1..6)
     }
 
     @Test
-    @ExperimentalCoroutinesApi
     fun `Move for 5 position`() {
         appService.playerMove(5)
         assertEquals(6, appService.player1.moveToPosition)
     }
 
     @Test
-    @ExperimentalCoroutinesApi
     fun `Status when move position 105`() {
         appService.player1.moveToPosition = 99
         appService.playerMove(6)
-
         assertEquals(false, appService.player1.winner)
     }
 
     @Test
-    @ExperimentalCoroutinesApi
+    fun `Status when player not move`() {
+        appService.player1.moveToPosition = 99
+        appService.playerMove(6)
+        assertEquals(99, appService.player1.onPosition)
+    }
+
+    @Test
     fun `Check for winner`() {
         appService.player1.moveToPosition = 99
         appService.playerMove(1)
